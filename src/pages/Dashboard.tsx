@@ -25,6 +25,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import aurumvestLogo from "@/assets/aurumvest-logo.png";
 
 const portfolioData = [
   { name: "Sovereign Fund", invested: 50000, current: 68500, roi: 37, color: "from-amber-400 to-yellow-500" },
@@ -67,9 +68,11 @@ export const Dashboard = () => {
           {/* Logo */}
           <div className="p-6 border-b border-border">
             <Link to="/" className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary via-primary to-gold-light flex items-center justify-center">
-                <span className="text-primary-foreground font-serif font-bold text-xl">A</span>
-              </div>
+              <img 
+                src={aurumvestLogo} 
+                alt="AurumVest Logo" 
+                className="w-10 h-10 object-contain"
+              />
               <span className="font-serif text-xl font-semibold text-foreground tracking-wide">
                 Aurum<span className="text-primary">Vest</span>
               </span>

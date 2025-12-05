@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
-import { Twitter, Linkedin, Github, Youtube, Send, Mail, MapPin, Phone } from "lucide-react";
+import { Twitter, Linkedin, Youtube, Send, Mail, MapPin, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import aurumvestLogo from "@/assets/aurumvest-logo.png";
 
 const footerLinks = {
   company: [
@@ -74,9 +75,11 @@ export const Footer = () => {
           {/* Brand Column */}
           <div className="col-span-2 md:col-span-3 lg:col-span-2">
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary via-primary to-gold-light flex items-center justify-center">
-                <span className="text-primary-foreground font-serif font-bold text-xl">A</span>
-              </div>
+              <img 
+                src={aurumvestLogo} 
+                alt="AurumVest Logo" 
+                className="w-10 h-10 object-contain"
+              />
               <span className="font-serif text-xl font-semibold text-foreground tracking-wide">
                 Aurum<span className="text-primary">Vest</span>
               </span>
@@ -171,7 +174,7 @@ export const Footer = () => {
         <div className="pt-8 border-t border-border/50">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <p className="text-sm text-muted-foreground">
-              © 2024 AurumVest. All rights reserved.
+              © 2025 AurumVest. All rights reserved.
             </p>
             <div className="flex items-center gap-4">
               {socialLinks.map((social) => (
