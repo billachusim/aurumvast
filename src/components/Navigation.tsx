@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import aurumvestLogo from "@/assets/aurumvest-logo.png";
 
 const navLinks = [
   { name: "About", href: "#about" },
@@ -45,9 +46,11 @@ export const Navigation = () => {
               className="flex items-center gap-3"
               whileHover={{ scale: 1.02 }}
             >
-              <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary via-primary to-gold-light flex items-center justify-center">
-                <span className="text-primary-foreground font-serif font-bold text-xl">A</span>
-              </div>
+              <img 
+                src={aurumvestLogo} 
+                alt="AurumVest Logo" 
+                className="w-10 h-10 object-contain"
+              />
               <span className="font-serif text-xl font-semibold text-foreground tracking-wide">
                 Aurum<span className="text-primary">Vest</span>
               </span>
