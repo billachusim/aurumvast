@@ -70,7 +70,7 @@ export const WhyChooseUs = () => {
             transition={{ duration: 0.8 }}
           >
             <span className="text-primary text-sm font-semibold tracking-widest uppercase mb-4 block">
-              Why AurumVault
+              Why AurumVest
             </span>
             <h2 className="text-3xl md:text-5xl font-serif font-bold text-foreground mb-6">
               The Gold Standard in{" "}
@@ -79,7 +79,7 @@ export const WhyChooseUs = () => {
               </span>
             </h2>
             <p className="text-muted-foreground text-lg leading-relaxed mb-8">
-              In a market flooded with promises, AurumVault delivers results. Our unique 
+              In a market flooded with promises, AurumVest delivers results. Our unique 
               combination of institutional-grade trading, cutting-edge mining operations, 
               and AI-powered strategies creates unparalleled value for our investors.
             </p>

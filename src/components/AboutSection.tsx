@@ -57,7 +57,7 @@ export const AboutSection = () => {
           </h2>
           <p className="text-muted-foreground text-lg leading-relaxed">
             Founded by former Wall Street quantitative analysts and blockchain pioneers, 
-            AurumVault has become the trusted partner for discerning investors seeking 
+            AurumVest has become the trusted partner for discerning investors seeking 
             exceptional returns in the digital asset space.
           </p>
         </motion.div>

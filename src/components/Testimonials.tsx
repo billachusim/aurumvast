@@ -37,7 +37,7 @@ const testimonials = [
     invested: "$2M",
   },
   {
-    quote: "As someone who managed billions in traditional finance, I can confidently say AurumVault's approach is revolutionary.",
+    quote: "As someone who managed billions in traditional finance, I can confidently say AurumVest's approach is revolutionary.",
     author: "Dr. Sarah Whitfield",
     title: "Hedge Fund Founder",
     location: "London, UK",
@@ -86,7 +86,7 @@ export const Testimonials = () => {
           </h2>
           <p className="text-muted-foreground text-lg">
             Discover why high-net-worth individuals and institutional investors 
-            choose AurumVault for their digital wealth management.
+            choose AurumVest for their digital wealth management.
           </p>
         </motion.div>
 

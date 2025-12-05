@@ -71,7 +71,7 @@ export const Dashboard = () => {
                 <span className="text-primary-foreground font-serif font-bold text-xl">A</span>
               </div>
               <span className="font-serif text-xl font-semibold text-foreground tracking-wide">
-                Aurum<span className="text-primary">Vault</span>
+                Aurum<span className="text-primary">Vest</span>
               </span>
             </Link>
           </div>
@@ -393,7 +393,7 @@ export const Dashboard = () => {
               </div>
               <div className="flex items-center gap-3">
                 <div className="flex-1 md:w-64 h-10 px-4 flex items-center rounded-lg bg-secondary/50 border border-border text-sm text-muted-foreground font-mono">
-                  aurumvault.com/ref/JD7892
+                  aurumvest.com/ref/JD7892
                 </div>
                 <Button variant="premium" size="default">
                   <Copy className="w-4 h-4" />

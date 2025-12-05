@@ -78,7 +78,7 @@ export const Footer = () => {
                 <span className="text-primary-foreground font-serif font-bold text-xl">A</span>
               </div>
               <span className="font-serif text-xl font-semibold text-foreground tracking-wide">
-                Aurum<span className="text-primary">Vault</span>
+                Aurum<span className="text-primary">Vest</span>
               </span>
             </div>
             <p className="text-muted-foreground text-sm leading-relaxed mb-6">
@@ -92,7 +92,7 @@ export const Footer = () => {
               </div>
               <div className="flex items-center gap-3">
                 <Mail className="w-4 h-4 text-primary" />
-                <span>contact@aurumvault.com</span>
+                <span>contact@aurumvest.com</span>
               </div>
               <div className="flex items-center gap-3">
                 <Phone className="w-4 h-4 text-primary" />
@@ -171,7 +171,7 @@ export const Footer = () => {
         <div className="pt-8 border-t border-border/50">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <p className="text-sm text-muted-foreground">
-              © 2024 AurumVault. All rights reserved.
+              © 2024 AurumVest. All rights reserved.
             </p>
             <div className="flex items-center gap-4">
               {socialLinks.map((social) => (
@@ -194,7 +194,7 @@ export const Footer = () => {
             <strong className="text-foreground">Risk Disclaimer:</strong> Cryptocurrency investments 
             carry significant risk. Past performance does not guarantee future results. 
             Please invest responsibly and only with funds you can afford to lose. 
-            AurumVault is not a registered investment advisor. All returns are historical 
+            AurumVest is not a registered investment advisor. All returns are historical 
             and subject to market conditions.
           </p>
         </div>

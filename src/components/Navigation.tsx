@@ -49,7 +49,7 @@ export const Navigation = () => {
                 <span className="text-primary-foreground font-serif font-bold text-xl">A</span>
               </div>
               <span className="font-serif text-xl font-semibold text-foreground tracking-wide">
-                Aurum<span className="text-primary">Vault</span>
+                Aurum<span className="text-primary">Vest</span>
               </span>
             </motion.a>
 
