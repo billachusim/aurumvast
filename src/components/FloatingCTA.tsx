@@ -24,6 +24,7 @@ export const FloatingCTA = () => {
     <AnimatePresence>
       {isVisible && (
         <motion.div
+          key="floating-buttons"
           initial={{ opacity: 0, y: 100 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 100 }}
@@ -55,6 +56,7 @@ export const FloatingCTA = () => {
       {/* Mobile Sticky CTA */}
       {isVisible && (
         <motion.div
+          key="mobile-cta"
           initial={{ opacity: 0, y: 100 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 100 }}
