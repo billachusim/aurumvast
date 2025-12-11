@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, ChevronDown } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import aurumvestLogo from "@/assets/aurumvest-logo.png";
+import { LanguageSelector } from "@/components/LanguageSelector";
 
 const navLinks = [
   { name: "About", href: "#about" },
@@ -70,8 +71,9 @@ export const Navigation = () => {
               ))}
             </div>
 
-            {/* CTA Buttons */}
+            {/* Language Selector & CTA Buttons */}
             <div className="hidden lg:flex items-center gap-4">
+              <LanguageSelector />
               <a href="/dashboard">
                 <Button variant="ghost" size="sm" className="text-muted-foreground">
                   Sign In
@@ -120,6 +122,9 @@ export const Navigation = () => {
                   </motion.a>
                 ))}
                 <div className="flex flex-col gap-4 mt-8">
+                  <div className="flex justify-center">
+                    <LanguageSelector />
+                  </div>
                   <a href="/dashboard">
                     <Button variant="premium-outline" size="lg" className="w-full">
                       Sign In
