@@ -3,18 +3,14 @@ import { useState } from "react";
 import {
   Wallet,
   TrendingUp,
-  Clock,
   Users,
   ArrowUpRight,
-  ArrowDownRight,
   Download,
   Send,
   Copy,
   Settings,
   Bell,
-  LogOut,
   Menu,
-  X,
   ChevronDown,
   BarChart3,
   PieChart,
@@ -22,10 +18,12 @@ import {
   MessageCircle,
   HelpCircle,
   Gift,
+  LogOut,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import aurumvestLogo from "@/assets/aurumvest-logo.png";
+import { useAuth } from "@/contexts/AuthContext";
 
 const portfolioData = [
   { name: "Sovereign Fund", invested: 50000, current: 68500, roi: 37, color: "from-amber-400 to-yellow-500" },
@@ -46,13 +44,30 @@ const chartData = Array.from({ length: 30 }, (_, i) => ({
   value: 75000 + Math.random() * 20000 + i * 500,
 }));
 
-export const Dashboard = () => {
+export default function Dashboard() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const { profile, signOut } = useAuth();
+  const navigate = useNavigate();
 
   const totalInvested = portfolioData.reduce((acc, p) => acc + p.invested, 0);
   const totalCurrent = portfolioData.reduce((acc, p) => acc + p.current, 0);
   const totalProfit = totalCurrent - totalInvested;
   const overallROI = ((totalProfit / totalInvested) * 100).toFixed(1);
+
+  const userInitials = profile
+    ? `${profile.first_name.charAt(0)}${profile.last_name.charAt(0)}`
+    : 'U';
+  
+  const userName = profile
+    ? `${profile.first_name} ${profile.last_name}`
+    : 'User';
+
+  const referralCode = profile?.referral_code || 'AV-XXXXXXXX';
+
+  const handleSignOut = async () => {
+    await signOut();
+    navigate('/');
+  };
 
   const maxChartValue = Math.max(...chartData.map((d) => d.value));
 
@@ -108,13 +123,15 @@ export const Dashboard = () => {
           <div className="p-4 border-t border-border">
             <div className="flex items-center gap-3 p-3 rounded-xl bg-secondary/50">
               <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-gold-light flex items-center justify-center">
-                <span className="text-primary-foreground font-bold">JD</span>
+                <span className="text-primary-foreground font-bold">{userInitials}</span>
               </div>
               <div className="flex-1">
-                <p className="font-medium text-foreground text-sm">John Doe</p>
-                <p className="text-xs text-muted-foreground">Sovereign Tier</p>
+                <p className="font-medium text-foreground text-sm">{userName}</p>
+                <p className="text-xs text-muted-foreground capitalize">{profile?.investment_experience || 'Member'}</p>
               </div>
-              <ChevronDown className="w-4 h-4 text-muted-foreground" />
+              <button onClick={handleSignOut} className="text-muted-foreground hover:text-destructive transition-colors">
+                <LogOut className="w-4 h-4" />
+              </button>
             </div>
           </div>
         </div>
@@ -396,7 +413,7 @@ export const Dashboard = () => {
               </div>
               <div className="flex items-center gap-3">
                 <div className="flex-1 md:w-64 h-10 px-4 flex items-center rounded-lg bg-secondary/50 border border-border text-sm text-muted-foreground font-mono">
-                  aurumvest.com/ref/JD7892
+                  aurumvest.com/ref/{referralCode}
                 </div>
                 <Button variant="premium" size="default">
                   <Copy className="w-4 h-4" />
@@ -435,6 +452,4 @@ export const Dashboard = () => {
       </main>
     </div>
   );
-};
-
-export default Dashboard;
+}

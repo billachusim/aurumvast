@@ -14,16 +14,89 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      profiles: {
+        Row: {
+          address: string | null
+          agreed_to_privacy_policy: boolean
+          agreed_to_terms: boolean
+          avatar_url: string | null
+          city: string | null
+          country: string
+          created_at: string
+          date_of_birth: string
+          email: string
+          first_name: string
+          id: string
+          investment_experience: Database["public"]["Enums"]["investment_experience"]
+          kyc_verified: boolean
+          last_name: string
+          phone_number: string
+          postal_code: string | null
+          referral_code: string | null
+          referred_by: string | null
+          risk_tolerance: Database["public"]["Enums"]["risk_tolerance"]
+          updated_at: string
+        }
+        Insert: {
+          address?: string | null
+          agreed_to_privacy_policy?: boolean
+          agreed_to_terms?: boolean
+          avatar_url?: string | null
+          city?: string | null
+          country: string
+          created_at?: string
+          date_of_birth: string
+          email: string
+          first_name: string
+          id: string
+          investment_experience?: Database["public"]["Enums"]["investment_experience"]
+          kyc_verified?: boolean
+          last_name: string
+          phone_number: string
+          postal_code?: string | null
+          referral_code?: string | null
+          referred_by?: string | null
+          risk_tolerance?: Database["public"]["Enums"]["risk_tolerance"]
+          updated_at?: string
+        }
+        Update: {
+          address?: string | null
+          agreed_to_privacy_policy?: boolean
+          agreed_to_terms?: boolean
+          avatar_url?: string | null
+          city?: string | null
+          country?: string
+          created_at?: string
+          date_of_birth?: string
+          email?: string
+          first_name?: string
+          id?: string
+          investment_experience?: Database["public"]["Enums"]["investment_experience"]
+          kyc_verified?: boolean
+          last_name?: string
+          phone_number?: string
+          postal_code?: string | null
+          referral_code?: string | null
+          referred_by?: string | null
+          risk_tolerance?: Database["public"]["Enums"]["risk_tolerance"]
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      generate_referral_code: { Args: never; Returns: string }
     }
     Enums: {
-      [_ in never]: never
+      investment_experience:
+        | "beginner"
+        | "intermediate"
+        | "experienced"
+        | "expert"
+      risk_tolerance: "conservative" | "moderate" | "aggressive"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +223,14 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      investment_experience: [
+        "beginner",
+        "intermediate",
+        "experienced",
+        "expert",
+      ],
+      risk_tolerance: ["conservative", "moderate", "aggressive"],
+    },
   },
 } as const

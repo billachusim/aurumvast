@@ -1,10 +1,13 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import aurumvestLogo from "@/assets/aurumvest-logo.png";
 import { LanguageSelector } from "@/components/LanguageSelector";
+import { useAuth } from "@/contexts/AuthContext";
+import { UserMenu } from "@/components/auth/UserMenu";
 
 const navLinks = [
   { name: "About", href: "#about" },
@@ -17,6 +20,7 @@ const navLinks = [
 export const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { user, loading } = useAuth();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -71,19 +75,27 @@ export const Navigation = () => {
               ))}
             </div>
 
-            {/* Language Selector & CTA Buttons */}
+            {/* Language Selector & CTA Buttons / User Menu */}
             <div className="hidden lg:flex items-center gap-4">
               <LanguageSelector />
-              <a href="/dashboard">
-                <Button variant="ghost" size="sm" className="text-muted-foreground">
-                  Sign In
-                </Button>
-              </a>
-              <a href="/dashboard">
-                <Button variant="premium" size="default">
-                  Start Earning
-                </Button>
-              </a>
+              {!loading && (
+                user ? (
+                  <UserMenu />
+                ) : (
+                  <>
+                    <Link to="/auth">
+                      <Button variant="ghost" size="sm" className="text-muted-foreground">
+                        Sign In
+                      </Button>
+                    </Link>
+                    <Link to="/auth">
+                      <Button variant="premium" size="default">
+                        Start Earning
+                      </Button>
+                    </Link>
+                  </>
+                )
+              )}
             </div>
 
             {/* Mobile Menu Button */}
@@ -125,16 +137,26 @@ export const Navigation = () => {
                   <div className="flex justify-center">
                     <LanguageSelector />
                   </div>
-                  <a href="/dashboard">
-                    <Button variant="premium-outline" size="lg" className="w-full">
-                      Sign In
-                    </Button>
-                  </a>
-                  <a href="/dashboard">
-                    <Button variant="premium" size="lg" className="w-full">
-                      Start Earning
-                    </Button>
-                  </a>
+                  {!loading && (
+                    user ? (
+                      <div className="flex justify-center">
+                        <UserMenu />
+                      </div>
+                    ) : (
+                      <>
+                        <Link to="/auth" onClick={() => setIsMobileMenuOpen(false)}>
+                          <Button variant="premium-outline" size="lg" className="w-full">
+                            Sign In
+                          </Button>
+                        </Link>
+                        <Link to="/auth" onClick={() => setIsMobileMenuOpen(false)}>
+                          <Button variant="premium" size="lg" className="w-full">
+                            Start Earning
+                          </Button>
+                        </Link>
+                      </>
+                    )
+                  )}
                 </div>
               </div>
             </div>
