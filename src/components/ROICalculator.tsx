@@ -8,50 +8,54 @@ export const ROICalculator = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
-  const [investment, setInvestment] = useState(10000);
+  const [investment, setInvestment] = useState(5000);
   const [plan, setPlan] = useState("quantum");
   const [compounding, setCompounding] = useState(false);
 
   const plans = {
-    sovereign: { name: "Sovereign Fund", roi: 6, weeks: 12, period: "weekly" },
-    quantum: { name: "Quantum Yield", roi: 4.2, weeks: 10, period: "weekly" },
-    titan: { name: "Titan Miner", roi: 15, weeks: 12, period: "monthly" },
-    ascend: { name: "Ascend Starter", roi: 2.5, weeks: 8, period: "weekly" },
+    ascend: { name: "Ascend Starter", roi: 5, days: 1, minDeposit: 50 },
+    titan: { name: "Titan Miner", roi: 7, days: 1, minDeposit: 1000 },
+    quantum: { name: "Quantum Yield", roi: 10, days: 1, minDeposit: 5000 },
+    sovereign: { name: "Sovereign Fund", roi: 13, days: 1, minDeposit: 10000 },
+    royal: { name: "Royal Elite", roi: 15, days: 1, minDeposit: 50000 },
   };
 
   const selectedPlan = plans[plan as keyof typeof plans];
 
   const calculateReturns = () => {
     const roiPercent = selectedPlan.roi / 100;
-    const periods = selectedPlan.period === "monthly" ? Math.ceil(selectedPlan.weeks / 4) : selectedPlan.weeks;
 
     if (compounding) {
-      const finalValue = investment * Math.pow(1 + roiPercent, periods);
+      // 7-day projection with daily compounding
+      const days = 7;
+      const finalValue = investment * Math.pow(1 + roiPercent, days);
       return {
         profit: finalValue - investment,
         total: finalValue,
-        weeklyAvg: (finalValue - investment) / selectedPlan.weeks,
+        dailyAvg: (finalValue - investment) / days,
       };
     } else {
-      const totalProfit = investment * roiPercent * periods;
+      // Single day return (no compounding)
+      const dailyProfit = investment * roiPercent;
       return {
-        profit: totalProfit,
-        total: investment + totalProfit,
-        weeklyAvg: totalProfit / selectedPlan.weeks,
+        profit: dailyProfit,
+        total: investment + dailyProfit,
+        dailyAvg: dailyProfit,
       };
     }
   };
 
   const returns = calculateReturns();
 
-  const chartData = Array.from({ length: selectedPlan.weeks + 1 }, (_, i) => {
+  // Generate chart data for 7-day projection
+  const chartDays = compounding ? 7 : 1;
+  const chartData = Array.from({ length: chartDays + 1 }, (_, i) => {
     const roiPercent = selectedPlan.roi / 100;
-    const periodsPerWeek = selectedPlan.period === "monthly" ? 0.25 : 1;
 
     if (compounding) {
-      return investment * Math.pow(1 + roiPercent, i * periodsPerWeek);
+      return investment * Math.pow(1 + roiPercent, i);
     }
-    return investment + investment * roiPercent * i * periodsPerWeek;
+    return investment + investment * roiPercent * i;
   });
 
   const maxValue = Math.max(...chartData);
@@ -113,21 +117,21 @@ export const ROICalculator = () => {
                     <input
                       type="number"
                       value={investment}
-                      onChange={(e) => setInvestment(Math.max(1000, Number(e.target.value)))}
+                      onChange={(e) => setInvestment(Math.max(50, Number(e.target.value)))}
                       className="w-full h-14 pl-10 pr-4 text-2xl font-bold bg-secondary/50 border border-border rounded-xl focus:border-primary focus:outline-none text-foreground"
                     />
                   </div>
                   <input
                     type="range"
-                    min={1000}
+                    min={50}
                     max={100000}
-                    step={1000}
+                    step={50}
                     value={investment}
                     onChange={(e) => setInvestment(Number(e.target.value))}
                     className="w-full mt-4 h-2 bg-secondary rounded-lg appearance-none cursor-pointer accent-primary"
                   />
                   <div className="flex justify-between text-xs text-muted-foreground mt-2">
-                    <span>$1,000</span>
+                    <span>$50</span>
                     <span>$100,000</span>
                   </div>
                 </div>
@@ -150,7 +154,7 @@ export const ROICalculator = () => {
                         }`}
                       >
                         <p className="font-semibold text-foreground text-sm">{p.name}</p>
-                        <p className="text-xs text-primary">{p.roi}% {p.period}</p>
+                        <p className="text-xs text-primary">{p.roi}% daily</p>
                       </button>
                     ))}
                   </div>
@@ -159,8 +163,8 @@ export const ROICalculator = () => {
                 {/* Compounding Toggle */}
                 <div className="flex items-center justify-between p-4 rounded-xl bg-secondary/50">
                   <div>
-                    <p className="font-medium text-foreground">Enable Compounding</p>
-                    <p className="text-xs text-muted-foreground">Reinvest returns automatically</p>
+                    <p className="font-medium text-foreground">7-Day Projection</p>
+                    <p className="text-xs text-muted-foreground">View compounded returns over 7 days</p>
                   </div>
                   <button
                     onClick={() => setCompounding(!compounding)}
@@ -203,15 +207,17 @@ export const ROICalculator = () => {
                     ))}
                   </div>
                   <div className="absolute bottom-2 left-4 right-4 flex justify-between text-xs text-muted-foreground">
-                    <span>Week 0</span>
-                    <span>Week {selectedPlan.weeks}</span>
+                    <span>Day 0</span>
+                    <span>Day {chartDays}</span>
                   </div>
                 </div>
 
                 {/* Return Stats */}
                 <div className="grid grid-cols-2 gap-4 mb-8">
                   <div className="p-4 rounded-xl bg-secondary/50">
-                    <p className="text-xs text-muted-foreground mb-1">Total Profit</p>
+                    <p className="text-xs text-muted-foreground mb-1">
+                      {compounding ? "7-Day Profit" : "Daily Profit"}
+                    </p>
                     <p className="text-2xl font-serif font-bold text-emerald-400">
                       +${returns.profit.toLocaleString(undefined, { maximumFractionDigits: 0 })}
                     </p>
@@ -227,10 +233,10 @@ export const ROICalculator = () => {
                 <div className="p-4 rounded-xl bg-primary/10 border border-primary/30 mb-6">
                   <div className="flex items-center gap-2 mb-1">
                     <Clock className="w-4 h-4 text-primary" />
-                    <span className="text-sm text-muted-foreground">Average Weekly Earnings</span>
+                    <span className="text-sm text-muted-foreground">Daily Earnings</span>
                   </div>
                   <p className="text-3xl font-serif font-bold text-primary">
-                    ${returns.weeklyAvg.toLocaleString(undefined, { maximumFractionDigits: 0 })}
+                    ${returns.dailyAvg.toLocaleString(undefined, { maximumFractionDigits: 0 })}
                   </p>
                 </div>
 

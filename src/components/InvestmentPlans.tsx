@@ -1,21 +1,81 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef, useState } from "react";
-import { Crown, Sparkles, Mountain, Rocket, Check, ArrowRight, Calculator } from "lucide-react";
+import { Crown, Sparkles, Mountain, Rocket, Check, ArrowRight, Calculator, Gem } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 
 const plans = [
   {
+    id: "ascend",
+    name: "Ascend Starter Plan",
+    subtitle: "Begin Your Journey",
+    icon: Rocket,
+    minDeposit: 50,
+    roi: "5%",
+    roiPeriod: "daily",
+    duration: "24 hours",
+    totalReturn: "5%",
+    color: "from-violet-400 via-purple-500 to-indigo-600",
+    features: [
+      "Beginner-Friendly Interface",
+      "Educational Resources",
+      "Daily Portfolio Updates",
+      "Community Access",
+      "Upgrade Path Available",
+    ],
+    featured: false,
+  },
+  {
+    id: "titan",
+    name: "Titan Miner Vault",
+    subtitle: "Pure Mining Returns",
+    icon: Mountain,
+    minDeposit: 1000,
+    roi: "7%",
+    roiPeriod: "daily",
+    duration: "24 hours",
+    totalReturn: "7%",
+    color: "from-emerald-400 via-green-500 to-teal-600",
+    features: [
+      "Direct BTC Mining Allocation",
+      "Real-time Hash Rate Stats",
+      "Daily Compounding Option",
+      "Mining Pool Diversification",
+      "Hardware Upgrade Benefits",
+    ],
+    featured: false,
+  },
+  {
+    id: "quantum",
+    name: "Quantum Yield Portfolio",
+    subtitle: "Hybrid Investment Strategy",
+    icon: Sparkles,
+    minDeposit: 5000,
+    roi: "10%",
+    roiPeriod: "daily",
+    duration: "24 hours",
+    totalReturn: "10%",
+    color: "from-cyan-400 via-blue-500 to-purple-600",
+    features: [
+      "Hybrid Mining + Trading",
+      "Advanced Analytics Dashboard",
+      "Daily Performance Reports",
+      "Portfolio Rebalancing",
+      "Risk Diversification",
+    ],
+    featured: false,
+  },
+  {
     id: "sovereign",
     name: "The Sovereign Fund",
-    subtitle: "For Royalty-Level Investors",
+    subtitle: "For Elite Investors",
     icon: Crown,
-    minDeposit: 50000,
-    roi: "6%",
-    roiPeriod: "weekly",
-    duration: "12 weeks",
-    totalReturn: "72%",
+    minDeposit: 10000,
+    roi: "13%",
+    roiPeriod: "daily",
+    duration: "24 hours",
+    totalReturn: "13%",
     color: "from-amber-400 via-yellow-500 to-amber-600",
     features: [
       "Dedicated Wealth Manager",
@@ -28,62 +88,24 @@ const plans = [
     featured: true,
   },
   {
-    id: "quantum",
-    name: "Quantum Yield Portfolio",
-    subtitle: "Hybrid Investment Strategy",
-    icon: Sparkles,
-    minDeposit: 10000,
-    roi: "4.2%",
-    roiPeriod: "weekly",
-    duration: "10 weeks",
-    totalReturn: "42%",
-    color: "from-cyan-400 via-blue-500 to-purple-600",
-    features: [
-      "Hybrid Mining + Trading",
-      "Advanced Analytics Dashboard",
-      "Weekly Performance Reports",
-      "Portfolio Rebalancing",
-      "Risk Diversification",
-    ],
-    featured: false,
-  },
-  {
-    id: "titan",
-    name: "Titan Miner Vault",
-    subtitle: "Pure Mining Returns",
-    icon: Mountain,
-    minDeposit: 5000,
+    id: "royal",
+    name: "Royal Elite Fund",
+    subtitle: "For Royalty-Level Investors",
+    icon: Gem,
+    minDeposit: 50000,
     roi: "15%",
-    roiPeriod: "monthly",
-    duration: "3 months",
-    totalReturn: "45%",
-    color: "from-emerald-400 via-green-500 to-teal-600",
+    roiPeriod: "daily",
+    duration: "24 hours",
+    totalReturn: "15%",
+    color: "from-rose-400 via-pink-500 to-purple-600",
     features: [
-      "Direct BTC Mining Allocation",
-      "Real-time Hash Rate Stats",
-      "Monthly Compounding Option",
-      "Mining Pool Diversification",
-      "Hardware Upgrade Benefits",
-    ],
-    featured: false,
-  },
-  {
-    id: "ascend",
-    name: "Ascend Starter Plan",
-    subtitle: "Begin Your Journey",
-    icon: Rocket,
-    minDeposit: 1000,
-    roi: "2.5%",
-    roiPeriod: "weekly",
-    duration: "8 weeks",
-    totalReturn: "20%",
-    color: "from-violet-400 via-purple-500 to-indigo-600",
-    features: [
-      "Beginner-Friendly Interface",
-      "Educational Resources",
-      "Weekly Portfolio Updates",
-      "Community Access",
-      "Upgrade Path Available",
+      "Private Wealth Concierge",
+      "Premium AI Trading Suite",
+      "Instant Priority Withdrawals",
+      "VIP Market Intelligence",
+      "Bespoke Investment Strategy",
+      "Dedicated Account Manager",
+      "Exclusive Elite Network Access",
     ],
     featured: false,
   },
@@ -95,13 +117,11 @@ const PlanCard = ({ plan, index, isInView }: { plan: typeof plans[0]; index: num
 
   const calculateReturns = () => {
     const roiPercent = parseFloat(plan.roi) / 100;
-    const weeks = parseInt(plan.duration);
-    const weeklyReturn = investmentAmount * roiPercent;
-    const totalReturn = weeklyReturn * weeks;
+    const dailyReturn = investmentAmount * roiPercent;
     return {
-      weekly: weeklyReturn,
-      total: totalReturn,
-      final: investmentAmount + totalReturn,
+      daily: dailyReturn,
+      total: dailyReturn,
+      final: investmentAmount + dailyReturn,
     };
   };
 
@@ -156,7 +176,7 @@ const PlanCard = ({ plan, index, isInView }: { plan: typeof plans[0]; index: num
                 <span className="text-muted-foreground text-sm">/ {plan.roiPeriod}</span>
               </div>
               <p className="text-sm text-muted-foreground">
-                {plan.totalReturn} total over {plan.duration}
+                {plan.totalReturn} total in {plan.duration}
               </p>
             </div>
 
@@ -251,11 +271,9 @@ const PlanCard = ({ plan, index, isInView }: { plan: typeof plans[0]; index: num
             {/* Projected Returns */}
             <div className="grid grid-cols-3 gap-4">
               <div className="p-4 rounded-xl bg-secondary/50 text-center">
-                <p className="text-xs text-muted-foreground mb-1">
-                  {plan.roiPeriod.charAt(0).toUpperCase() + plan.roiPeriod.slice(1)} Return
-                </p>
+                <p className="text-xs text-muted-foreground mb-1">Daily Return</p>
                 <p className="text-lg font-bold text-primary">
-                  ${returns.weekly.toLocaleString(undefined, { maximumFractionDigits: 0 })}
+                  ${returns.daily.toLocaleString(undefined, { maximumFractionDigits: 0 })}
                 </p>
               </div>
               <div className="p-4 rounded-xl bg-secondary/50 text-center">
@@ -330,8 +348,8 @@ export const InvestmentPlans = () => {
           </p>
         </motion.div>
 
-        {/* Plans Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+        {/* Plans Grid - 5 columns on large screens */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
           {plans.map((plan, index) => (
             <PlanCard key={plan.id} plan={plan} index={index} isInView={isInView} />
           ))}
