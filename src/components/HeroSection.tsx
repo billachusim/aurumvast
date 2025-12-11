@@ -1,7 +1,8 @@
 import { motion } from "framer-motion";
-import { ArrowRight, Play, TrendingUp, Shield, Zap } from "lucide-react";
+import { ArrowRight, Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import { LanguageSelector } from "@/components/LanguageSelector";
 
 const stats = [
   { value: "$2.4B+", label: "Assets Under Management" },
@@ -62,6 +63,18 @@ export const HeroSection = () => {
       </div>
 
       <div className="container mx-auto px-4 relative z-10">
+        {/* Language Selector */}
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+          className="flex justify-end mb-4"
+        >
+          <div className="glass rounded-full px-2 py-1 border border-primary/20">
+            <LanguageSelector />
+          </div>
+        </motion.div>
+
         <div className="max-w-5xl mx-auto text-center">
           {/* Badge */}
           <motion.div
