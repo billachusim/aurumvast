@@ -24,6 +24,15 @@ import { Button } from "@/components/ui/button";
 import { Link, useNavigate } from "react-router-dom";
 import aurumvestLogo from "@/assets/aurumvest-logo.png";
 import { useAuth } from "@/contexts/AuthContext";
+import { DepositModal } from "@/components/DepositModal";
+
+const depositPlans = [
+  { id: "ascend", name: "Ascend Starter Plan", minDeposit: 50, roi: "5%", color: "from-violet-400 via-purple-500 to-indigo-600" },
+  { id: "titan", name: "Titan Miner Vault", minDeposit: 2000, roi: "7%", color: "from-emerald-400 via-green-500 to-teal-600" },
+  { id: "quantum", name: "Quantum Yield Portfolio", minDeposit: 5000, roi: "10%", color: "from-cyan-400 via-blue-500 to-purple-600" },
+  { id: "sovereign", name: "The Sovereign Fund", minDeposit: 10000, roi: "13%", color: "from-amber-400 via-yellow-500 to-amber-600" },
+  { id: "royal", name: "Royal Elite Fund", minDeposit: 20000, roi: "15%", color: "from-rose-400 via-pink-500 to-purple-600" },
+];
 
 const portfolioData = [
   { name: "Sovereign Fund", invested: 50000, current: 68500, roi: 37, color: "from-amber-400 to-yellow-500" },
@@ -46,6 +55,7 @@ const chartData = Array.from({ length: 30 }, (_, i) => ({
 
 export default function Dashboard() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isDepositModalOpen, setIsDepositModalOpen] = useState(false);
   const { profile, signOut } = useAuth();
   const navigate = useNavigate();
 
@@ -164,7 +174,7 @@ export default function Dashboard() {
                 <Bell className="w-5 h-5" />
                 <span className="absolute top-1 right-1 w-2 h-2 bg-primary rounded-full" />
               </button>
-              <Button variant="premium" size="sm" className="hidden sm:flex">
+              <Button variant="premium" size="sm" className="hidden sm:flex" onClick={() => setIsDepositModalOpen(true)}>
                 <Download className="w-4 h-4" />
                 Deposit
               </Button>
@@ -450,6 +460,12 @@ export default function Dashboard() {
           </motion.div>
         </div>
       </main>
+
+      <DepositModal
+        isOpen={isDepositModalOpen}
+        onClose={() => setIsDepositModalOpen(false)}
+        plans={depositPlans}
+      />
     </div>
   );
 }

@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import {
@@ -9,11 +10,21 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { User, LayoutDashboard, LogOut, Settings } from 'lucide-react';
+import { User, LayoutDashboard, LogOut, Settings, Wallet } from 'lucide-react';
+import { DepositModal } from '@/components/DepositModal';
+
+const depositPlans = [
+  { id: "ascend", name: "Ascend Starter Plan", minDeposit: 50, roi: "5%", color: "from-violet-400 via-purple-500 to-indigo-600" },
+  { id: "titan", name: "Titan Miner Vault", minDeposit: 2000, roi: "7%", color: "from-emerald-400 via-green-500 to-teal-600" },
+  { id: "quantum", name: "Quantum Yield Portfolio", minDeposit: 5000, roi: "10%", color: "from-cyan-400 via-blue-500 to-purple-600" },
+  { id: "sovereign", name: "The Sovereign Fund", minDeposit: 10000, roi: "13%", color: "from-amber-400 via-yellow-500 to-amber-600" },
+  { id: "royal", name: "Royal Elite Fund", minDeposit: 20000, roi: "15%", color: "from-rose-400 via-pink-500 to-purple-600" },
+];
 
 export function UserMenu() {
   const { profile, signOut } = useAuth();
   const navigate = useNavigate();
+  const [isDepositModalOpen, setIsDepositModalOpen] = useState(false);
 
   const initials = profile
     ? `${profile.first_name.charAt(0)}${profile.last_name.charAt(0)}`
@@ -55,6 +66,10 @@ export function UserMenu() {
           <User className="mr-2 h-4 w-4" />
           Profile
         </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => setIsDepositModalOpen(true)}>
+          <Wallet className="mr-2 h-4 w-4" />
+          Deposit
+        </DropdownMenuItem>
         <DropdownMenuItem onClick={() => navigate('/dashboard')}>
           <Settings className="mr-2 h-4 w-4" />
           Settings
@@ -65,6 +80,12 @@ export function UserMenu() {
           Sign Out
         </DropdownMenuItem>
       </DropdownMenuContent>
+
+      <DepositModal
+        isOpen={isDepositModalOpen}
+        onClose={() => setIsDepositModalOpen(false)}
+        plans={depositPlans}
+      />
     </DropdownMenu>
   );
 }
