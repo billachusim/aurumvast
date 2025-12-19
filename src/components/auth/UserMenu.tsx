@@ -10,8 +10,9 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { User, LayoutDashboard, LogOut, Settings, Wallet } from 'lucide-react';
+import { User, LayoutDashboard, LogOut, Settings, Wallet, ArrowUpRight } from 'lucide-react';
 import { DepositModal } from '@/components/DepositModal';
+import { WithdrawalModal } from '@/components/WithdrawalModal';
 
 const depositPlans = [
   { id: "ascend", name: "Ascend Starter Plan", minDeposit: 50, roi: "5%", color: "from-violet-400 via-purple-500 to-indigo-600" },
@@ -25,6 +26,7 @@ export function UserMenu() {
   const { profile, signOut } = useAuth();
   const navigate = useNavigate();
   const [isDepositModalOpen, setIsDepositModalOpen] = useState(false);
+  const [isWithdrawalModalOpen, setIsWithdrawalModalOpen] = useState(false);
 
   const initials = profile
     ? `${profile.first_name.charAt(0)}${profile.last_name.charAt(0)}`
@@ -70,6 +72,10 @@ export function UserMenu() {
           <Wallet className="mr-2 h-4 w-4" />
           Deposit
         </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => setIsWithdrawalModalOpen(true)}>
+          <ArrowUpRight className="mr-2 h-4 w-4" />
+          Withdraw
+        </DropdownMenuItem>
         <DropdownMenuItem onClick={() => navigate('/dashboard')}>
           <Settings className="mr-2 h-4 w-4" />
           Settings
@@ -85,6 +91,11 @@ export function UserMenu() {
         isOpen={isDepositModalOpen}
         onClose={() => setIsDepositModalOpen(false)}
         plans={depositPlans}
+      />
+
+      <WithdrawalModal
+        isOpen={isWithdrawalModalOpen}
+        onClose={() => setIsWithdrawalModalOpen(false)}
       />
     </DropdownMenu>
   );

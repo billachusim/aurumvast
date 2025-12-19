@@ -83,6 +83,36 @@ export type Database = {
         }
         Relationships: []
       }
+      withdrawals: {
+        Row: {
+          amount: number
+          created_at: string
+          id: string
+          status: Database["public"]["Enums"]["withdrawal_status"]
+          updated_at: string
+          user_id: string
+          wallet_address: string
+        }
+        Insert: {
+          amount: number
+          created_at?: string
+          id?: string
+          status?: Database["public"]["Enums"]["withdrawal_status"]
+          updated_at?: string
+          user_id: string
+          wallet_address: string
+        }
+        Update: {
+          amount?: number
+          created_at?: string
+          id?: string
+          status?: Database["public"]["Enums"]["withdrawal_status"]
+          updated_at?: string
+          user_id?: string
+          wallet_address?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -97,6 +127,7 @@ export type Database = {
         | "experienced"
         | "expert"
       risk_tolerance: "conservative" | "moderate" | "aggressive"
+      withdrawal_status: "pending" | "processing" | "completed" | "rejected"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -231,6 +262,7 @@ export const Constants = {
         "expert",
       ],
       risk_tolerance: ["conservative", "moderate", "aggressive"],
+      withdrawal_status: ["pending", "processing", "completed", "rejected"],
     },
   },
 } as const
