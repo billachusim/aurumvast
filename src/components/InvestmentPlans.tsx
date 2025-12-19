@@ -4,7 +4,7 @@ import { useRef, useState } from "react";
 import { Crown, Sparkles, Mountain, Rocket, Check, ArrowRight, Calculator, Gem } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
-
+import { DepositModal } from "@/components/DepositModal";
 const plans = [
   {
     id: "ascend",
@@ -113,6 +113,7 @@ const plans = [
 
 const PlanCard = ({ plan, index, isInView }: { plan: typeof plans[0]; index: number; isInView: boolean }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isDepositModalOpen, setIsDepositModalOpen] = useState(false);
   const [investmentAmount, setInvestmentAmount] = useState(plan.minDeposit);
 
   const calculateReturns = () => {
@@ -206,6 +207,7 @@ const PlanCard = ({ plan, index, isInView }: { plan: typeof plans[0]; index: num
                 variant={plan.featured ? "premium" : "default"}
                 className="w-full"
                 size="lg"
+                onClick={() => setIsDepositModalOpen(true)}
               >
                 Invest Now
                 <ArrowRight className="w-4 h-4" />
@@ -303,13 +305,34 @@ const PlanCard = ({ plan, index, isInView }: { plan: typeof plans[0]; index: num
               </ul>
             </div>
 
-            <Button variant="premium" className="w-full" size="lg">
+            <Button 
+              variant="premium" 
+              className="w-full" 
+              size="lg"
+              onClick={() => {
+                setIsModalOpen(false);
+                setIsDepositModalOpen(true);
+              }}
+            >
               Start Investing
               <ArrowRight className="w-4 h-4" />
             </Button>
           </div>
         </DialogContent>
       </Dialog>
+
+      {/* Deposit Modal */}
+      <DepositModal
+        isOpen={isDepositModalOpen}
+        onClose={() => setIsDepositModalOpen(false)}
+        selectedPlan={{
+          id: plan.id,
+          name: plan.name,
+          minDeposit: plan.minDeposit,
+          roi: plan.roi,
+          color: plan.color,
+        }}
+      />
     </>
   );
 };
