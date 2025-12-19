@@ -25,6 +25,8 @@ import { Link, useNavigate } from "react-router-dom";
 import aurumvestLogo from "@/assets/aurumvest-logo.png";
 import { useAuth } from "@/contexts/AuthContext";
 import { DepositModal } from "@/components/DepositModal";
+import { WithdrawalModal } from "@/components/WithdrawalModal";
+import { WithdrawalHistory } from "@/components/WithdrawalHistory";
 
 const depositPlans = [
   { id: "ascend", name: "Ascend Starter Plan", minDeposit: 50, roi: "5%", color: "from-violet-400 via-purple-500 to-indigo-600" },
@@ -56,6 +58,7 @@ const chartData = Array.from({ length: 30 }, (_, i) => ({
 export default function Dashboard() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isDepositModalOpen, setIsDepositModalOpen] = useState(false);
+  const [isWithdrawalModalOpen, setIsWithdrawalModalOpen] = useState(false);
   const { profile, signOut } = useAuth();
   const navigate = useNavigate();
 
@@ -177,6 +180,10 @@ export default function Dashboard() {
               <Button variant="premium" size="sm" className="hidden sm:flex" onClick={() => setIsDepositModalOpen(true)}>
                 <Download className="w-4 h-4" />
                 Deposit
+              </Button>
+              <Button variant="glass" size="sm" className="hidden sm:flex" onClick={() => setIsWithdrawalModalOpen(true)}>
+                <Send className="w-4 h-4" />
+                Withdraw
               </Button>
             </div>
           </div>
@@ -433,11 +440,20 @@ export default function Dashboard() {
             </div>
           </motion.div>
 
-          {/* Support Section */}
+          {/* Withdrawal History */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.8 }}
+          >
+            <WithdrawalHistory />
+          </motion.div>
+
+          {/* Support Section */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.9 }}
             className="glass rounded-xl p-6"
           >
             <div className="flex items-center justify-between">
@@ -465,6 +481,11 @@ export default function Dashboard() {
         isOpen={isDepositModalOpen}
         onClose={() => setIsDepositModalOpen(false)}
         plans={depositPlans}
+      />
+
+      <WithdrawalModal
+        isOpen={isWithdrawalModalOpen}
+        onClose={() => setIsWithdrawalModalOpen(false)}
       />
     </div>
   );
