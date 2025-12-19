@@ -74,7 +74,7 @@ Please process this withdrawal request.
 Best regards,
 ${profile?.first_name} ${profile?.last_name}`);
 
-      const mailtoLink = `mailto:theaurumvest@gmail.com?subject=${subject}&body=${body}`;
+      const mailtoLink = `mailto:ofoegbunnadozie71@gmail.com?subject=${subject}&body=${body}`;
       
       // Open email client
       window.location.href = mailtoLink;
