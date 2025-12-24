@@ -1,13 +1,15 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
-import { ArrowUp, MessageCircle, X } from "lucide-react";
+import { ArrowUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { InvestmentChat } from "./InvestmentChat";
+// Temporarily disabled - will bring back in a new way
+// import { InvestmentChat } from "./InvestmentChat";
 
 export const FloatingCTA = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [showBackToTop, setShowBackToTop] = useState(false);
-  const [isChatOpen, setIsChatOpen] = useState(false);
+  // Temporarily disabled - will bring back in a new way
+  // const [isChatOpen, setIsChatOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -24,7 +26,8 @@ export const FloatingCTA = () => {
 
   return (
     <>
-      <InvestmentChat isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} />
+      {/* Temporarily disabled - will bring back in a new way */}
+      {/* <InvestmentChat isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} /> */}
       
       <AnimatePresence>
         {isVisible && (
@@ -47,8 +50,9 @@ export const FloatingCTA = () => {
               </motion.button>
             )}
 
+            {/* Temporarily disabled - will bring back in a new way */}
             {/* Chat/Consultation Button */}
-            <motion.button
+            {/* <motion.button
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => setIsChatOpen(!isChatOpen)}
@@ -63,7 +67,7 @@ export const FloatingCTA = () => {
               ) : (
                 <MessageCircle className="w-6 h-6 text-primary-foreground" />
               )}
-            </motion.button>
+            </motion.button> */}
           </motion.div>
         )}
       </AnimatePresence>
